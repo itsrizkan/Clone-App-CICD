@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clone-app
+  labels:
+    app: clone-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: clone-app
+  template:
+    metadata:
+      labels:
+        app: clone-app
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+      - name: clone-app
+        image: itsrizkan/clone-app:latest
+        imagePullPolicy: "Always"
+        ports:
+        - containerPort: 3000
