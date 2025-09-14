@@ -58,7 +58,12 @@ pipeline{
          }
          stage("TRIVY"){
              steps{
-                 sh "trivy image itsrizkan/clone-app:latest > trivyimage.txt" 
+                 sh '''
+                        trivy image --exit-code 1 \
+                                    --severity CRITICAL,HIGH \
+                                    --no-progress \
+                                    itsrizkan/clone-app:latest
+                    ''' 
              }
          }
           stage('Deploy to Kubernets'){
